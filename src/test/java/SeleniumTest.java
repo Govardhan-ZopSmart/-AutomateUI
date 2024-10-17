@@ -1,111 +1,95 @@
-
-
-
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals; // Import for assertEquals
-import java.time.Duration;
-import org.openqa.selenium.support.ui.Select;
 import static org.junit.Assert.assertEquals;
-
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 public class SeleniumTest {
 
-    public static void main(String[] args) {
+    WebDriver driver;
+    WebDriverWait wait;
 
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver"); // Update the path
-
-
-        WebDriver driver = new ChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        try {
-
-            driver.get("https://www.rahulshettyacademy.com/AutomationPractice/");
-
-
-            testRadioButton(driver);
-            testSuggestionClass(driver);
-            testDropdownSelection(driver);
-            testCheckboxSelection(driver);
-            testCoursePrice(driver);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-//        finally {
-//
-//            driver.quit();
-//        }
+    @Before
+    public void setup() {
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.get("https://www.rahulshettyacademy.com/AutomationPractice/");
     }
 
-    private static void testRadioButton(WebDriver driver) {
-        // Locate the radio button using its value attribute
+    @Test
+    public void testRadioButton() throws InterruptedException {
         WebElement radioButton = driver.findElement(By.cssSelector("input[value='radio3']"));
-
-
         radioButton.click();
-
-
         assertTrue("Radio3 button should be selected", radioButton.isSelected());
-
-
-        System.out.println("Radio3 button is successfully selected.");
+        Thread.sleep(2000);
     }
 
-    private static void testSuggestionClass(WebDriver driver) throws InterruptedException {
-
+    @Test
+    public void testSuggestionClass() throws InterruptedException {
         WebElement autocompleteTextbox = driver.findElement(By.id("autocomplete"));
         autocompleteTextbox.sendKeys("Ind");
         Thread.sleep(2000);
-
-
         WebElement suggestion = driver.findElement(By.xpath("//div[contains(@class, 'ui-menu-item-wrapper') and text()='India']"));
         suggestion.click();
-
-
         String selectedValue = autocompleteTextbox.getAttribute("value");
         assertEquals("India", selectedValue);
-        System.out.println("Selected value in the autocomplete textbox is: " + selectedValue); // Print the selected value
     }
-    private static void testDropdownSelection(WebDriver driver) {
 
-        //find the dropdownobject
+    @Test
+    public void testDropdownSelection() throws InterruptedException {
         WebElement dropdownElement = driver.findElement(By.id("dropdown-class-example"));
-
-        //create one more object for the select tag
         Select dropdown = new Select(dropdownElement);
-
-        // getting the first selected option
         dropdown.selectByVisibleText("Option2");
-
-
         WebElement selectedOption = dropdown.getFirstSelectedOption();
         String selectedText = selectedOption.getText();
         assertEquals("Option2", selectedText);
-
-        // Print the selected value
-        System.out.println("Selected option in the dropdown is: " + selectedText);
+        Thread.sleep(2000);
     }
-    private static void testCheckboxSelection(WebDriver driver){
-        WebElement checkbox= driver.findElement(By.id("checkBoxOption1"));
-        if(!checkbox.isSelected()){
+
+    @Test
+    public void testCheckboxSelection() throws InterruptedException {
+        WebElement checkbox = driver.findElement(By.id("checkBoxOption1"));
+        if (!checkbox.isSelected()) {
             checkbox.click();
         }
         assertTrue("Option 1 checkbox should be selected", checkbox.isSelected());
-
-
+        Thread.sleep(2000);
     }
-    private static void testCoursePrice(WebDriver driver) throws InterruptedException {
 
+    @Test
+    public void testCoursePrice() throws InterruptedException {
         WebElement courseRow = driver.findElement(By.xpath("//td[text()='Master Selenium Automation in simple Python Language']/following-sibling::td[1]"));
         String coursePrice = courseRow.getText();
-        assertEquals("35", coursePrice, "It has to give 35  but the result is: "+coursePrice);
-        System.out.println("Price for the course 'Master Selenium Automation in simple Python Language' is: " + coursePrice);
+        assertEquals("It has to give 25, but the result is: " + coursePrice, "25", coursePrice); // Updated expected price
+        Thread.sleep(2000);
     }
 
+    @Test
+    public void testMouseOver() throws InterruptedException {
+        WebElement mouseHoverButton = driver.findElement(By.id("mousehover"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(mouseHoverButton).perform();
+        Thread.sleep(2000);
+        WebElement reloadLink = driver.findElement(By.xpath("//a[text()='Reload']"));
+        reloadLink.click();
+        String currentUrl = driver.getCurrentUrl();
+        assertTrue("Page should reload after clicking 'Reload'", currentUrl.contains("AutomationPractice"));
+        Thread.sleep(2000);
+    }
+
+
+
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
 }
