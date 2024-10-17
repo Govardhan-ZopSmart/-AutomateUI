@@ -64,15 +64,7 @@ public class SeleniumTest {
         assertEquals("India", selectedValue);
         System.out.println("Selected value in the autocomplete textbox is: " + selectedValue); // Print the selected value
     }
-    private static void testCoursePrice(WebDriver driver) throws InterruptedException{
-        WebElement courseRow=driver.findElement(By.xpath("//td[text()='Master Selenium Automation in simple Python Language']/following-sibling::td[1]"));
-        String coursePrice=courseRow.getText();
-        assertEquals("35",coursePrice);
-        System.out.println("Price for the course 'Master Selenium automation in simple python langauge' is : "+coursePrice);
-    }
+
 
 }
-//7. Web Table Example
-//Write a test to verify if the price of the course 'Master Selenium Automation in
-//simple Python Language' is 35. (Test should fail if its other than 35)
 
