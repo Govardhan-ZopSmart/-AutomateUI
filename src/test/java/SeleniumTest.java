@@ -1,3 +1,6 @@
+
+
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,6 +32,7 @@ public class SeleniumTest {
             testSuggestionClass(driver);
             testDropdownSelection(driver);
             testCheckboxSelection(driver);
+            testCoursePrice(driver);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,16 +74,16 @@ public class SeleniumTest {
     }
     private static void testDropdownSelection(WebDriver driver) {
 
-        // Locate the dropdown element
+        //find the dropdownobject
         WebElement dropdownElement = driver.findElement(By.id("dropdown-class-example"));
 
-        // Create a Select object to interact with the dropdown
+        //create one more object for the select tag
         Select dropdown = new Select(dropdownElement);
 
-        // Select "Option2" from the dropdown using visible text
+        // getting the first selected option
         dropdown.selectByVisibleText("Option2");
 
-        // Get the selected option and verify that it is "Option2"
+
         WebElement selectedOption = dropdown.getFirstSelectedOption();
         String selectedText = selectedOption.getText();
         assertEquals("Option2", selectedText);
@@ -95,6 +99,13 @@ public class SeleniumTest {
         assertTrue("Option 1 checkbox should be selected", checkbox.isSelected());
 
 
+    }
+    private static void testCoursePrice(WebDriver driver) throws InterruptedException {
+
+        WebElement courseRow = driver.findElement(By.xpath("//td[text()='Master Selenium Automation in simple Python Language']/following-sibling::td[1]"));
+        String coursePrice = courseRow.getText();
+        assertEquals("35", coursePrice, "It has to give 35  but the result is: "+coursePrice);
+        System.out.println("Price for the course 'Master Selenium Automation in simple Python Language' is: " + coursePrice);
     }
 
 }
