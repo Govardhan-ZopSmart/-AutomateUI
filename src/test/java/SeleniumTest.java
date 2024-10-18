@@ -25,7 +25,7 @@ public class SeleniumTest {
 
     @Before
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "Driver/chromedriver");
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.get("https://www.rahulshettyacademy.com/AutomationPractice/");
