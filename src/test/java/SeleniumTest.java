@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import org.openqa.selenium.Alert;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class SeleniumTest {
@@ -89,35 +91,7 @@ public class SeleniumTest {
         Thread.sleep(2000);
     }
 
-//    @Test
-//    public void testSumOfAmounts() throws InterruptedException{
-//
-//
-//        // Locate the table rows
-//        List<WebElement> rows = driver.findElements(By.cssSelector("#product tbody tr"));
-//
-//        // Initialize total sum
-//        int totalSum = 0;
-//
-//        // Loop through each row to extract the amount and calculate the total
-//        for (WebElement row : rows) {
-//            WebElement amountCell = row.findElement(By.cssSelector("td:last-child")); // Last cell is the amount
-//            int amount = Integer.parseInt(amountCell.getText()); // Convert to integer
-//            totalSum += amount; // Add to total sum
-//        }
-//
-//        // Get the displayed total amount
-//        WebElement totalAmountElement = driver.findElement(By.cssSelector(".totalAmount"));
-//        String displayedTotal = totalAmountElement.getText().split(": ")[1]; // Extract the total value
-//
-//        // Verify the total sum matches the displayed value
-//        assertEquals("The calculated total does not match the displayed total", Integer.parseInt(displayedTotal), totalSum);
-//
-//        // Print success message
-//        System.out.println("Test passed! Total amount calculated matches displayed total: " + totalSum);
-//    Thread.sleep(2000);
-//
-//    }
+
 @Test
 public void testAlert() throws InterruptedException {
     WebElement textbox = driver.findElement(By.id("name"));
@@ -162,6 +136,27 @@ public void testAlert() throws InterruptedException {
         Thread.sleep(2000);
     }
 
+    @Test
+    public void switchTab() throws InterruptedException {
+        driver.findElement(By.id("opentab")).click();
+
+        List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+
+        //validate the new tab
+        String expectedTitle = "QAClick Academy - A Testing Academy to Learn, Earn and Shine";
+        assertTrue(driver.getTitle().contains(expectedTitle));
+
+        assertTrue(driver.findElement(By.linkText("Home")).isDisplayed());
+        assertTrue(driver.findElement(By.linkText("Courses")).isDisplayed());
+        assertTrue(driver.findElement(By.linkText("Access all our Courses")).isDisplayed());
+        assertTrue(driver.findElement(By.linkText("Learn More")).isDisplayed());
+        assertTrue(driver.findElement(By.xpath("//div[@class='apply-cont apply-color-2']/a")).isDisplayed());
+        assertTrue(driver.findElement(By.xpath("//li[@class='nav-item']/a[text()='Contact']")).isDisplayed());
+        assertTrue(driver.findElement(By.xpath("//li[@class='nav-item']/a[text()='Blog']")).isDisplayed());
+        assertTrue(driver.findElement(By.xpath("//li[@class='nav-item']/a[text()='About us']")).isDisplayed());
+        Thread.sleep(2000);
+    }
 
     @After
     public void tearDown() {
