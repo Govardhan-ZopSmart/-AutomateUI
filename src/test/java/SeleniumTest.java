@@ -19,9 +19,6 @@ import java.util.List;
 
 public class SeleniumTest {
 
-    WebDriver driver;
-    WebDriverWait wait;
-
     @Before
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -162,4 +159,7 @@ public void testAlert() throws InterruptedException {
     public void tearDown() {
         driver.quit();
     }
+
+
 }
+
