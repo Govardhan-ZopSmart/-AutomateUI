@@ -17,18 +17,23 @@ import org.openqa.selenium.Alert;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class SeleniumTest {
 
     WebDriver driver;
     WebDriverWait wait;
+
     @Before
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.get("https://www.rahulshettyacademy.com/AutomationPractice/");
     }
 
+
+    // 1. Radio Button Example
+    //Click on Radio3 button and verify whether it is selected.
     @Test
     public void testRadioButton() throws InterruptedException {
         WebElement radioButton = driver.findElement(By.cssSelector("input[value='radio3']"));
@@ -37,6 +42,10 @@ public class SeleniumTest {
         Thread.sleep(2000);
     }
 
+
+    // 2. Suggestion Class Example
+    //Type Ind in the textbox, and select India from the options. Verify if India is populated
+    //in textbox.
     @Test
     public void testSuggestionClass() throws InterruptedException {
         WebElement autocompleteTextbox = driver.findElement(By.id("autocomplete"));
@@ -48,6 +57,9 @@ public class SeleniumTest {
         assertEquals("India", selectedValue);
     }
 
+    // 3. Dropdown Example
+    //Select Option2 from dropdown and verify whether Option2 is displayed in
+    //Dropdown.
     @Test
     public void testDropdownSelection() throws InterruptedException {
         WebElement dropdownElement = driver.findElement(By.id("dropdown-class-example"));
@@ -59,6 +71,8 @@ public class SeleniumTest {
         Thread.sleep(2000);
     }
 
+    // 4. Checkbox Example
+    //Select Option1 checkbox. Verify if it got checked.
     @Test
     public void testCheckboxSelection() throws InterruptedException {
         WebElement checkbox = driver.findElement(By.id("checkBoxOption1"));
@@ -68,15 +82,19 @@ public class SeleniumTest {
         assertTrue("Option 1 checkbox should be selected", checkbox.isSelected());
         Thread.sleep(2000);
     }
-
+    //  7. Web Table Example
+    //Write a test to verify if the price of the course 'Master Selenium Automation in
+    //simple Python Language' is 35. (Test should fail if its other than 35)
     @Test
     public void testCoursePrice() throws InterruptedException {
         WebElement courseRow = driver.findElement(By.xpath("//td[text()='Master Selenium Automation in simple Python Language']/following-sibling::td[1]"));
         String coursePrice = courseRow.getText();
-        assertEquals("It has to give 25, but the result is: " + coursePrice, "25", coursePrice); // Updated expected price
+        assertEquals("It has to give 35, but the result is: " + coursePrice, "35", coursePrice);
         Thread.sleep(2000);
     }
 
+    // 9. Mouse Hover Example
+    //Hover the Mouse Hover button (DO NOT CLICK) and select Reload.
     @Test
     public void testMouseOver() throws InterruptedException {
         WebElement mouseHoverButton = driver.findElement(By.id("mousehover"));
@@ -90,33 +108,40 @@ public class SeleniumTest {
         Thread.sleep(2000);
     }
 
-
-@Test
-public void testAlert() throws InterruptedException {
-    WebElement textbox = driver.findElement(By.id("name"));
-
+    //6. Switch To Alert Example
     //a. Enter your name in textbox
-    textbox.sendKeys("Gova");
-
     //b. Click on Alert button and accept the alert
-    WebElement alertButton = driver.findElement(By.id("alertbtn"));
-    alertButton.click();
-
-    wait.until(ExpectedConditions.alertIsPresent());
-    Alert alert1 = driver.switchTo().alert();
-    Thread.sleep(2000);
-    alert1.accept();
-
     //c. Click on confirm button and cancel the alert
-    textbox.sendKeys("Gova");
-    WebElement confirmButton = driver.findElement(By.id("confirmbtn"));
-    confirmButton.click();
+    @Test
+    public void testAlert() throws InterruptedException {
+        WebElement textbox = driver.findElement(By.id("name"));
 
-    wait.until(ExpectedConditions.alertIsPresent());
-    Alert alert2 = driver.switchTo().alert();
-    Thread.sleep(2000);
-    alert2.dismiss();
-}
+        //a. Enter your name in textbox
+        textbox.sendKeys("Gova");
+
+        //b. Click on Alert button and accept the alert
+        WebElement alertButton = driver.findElement(By.id("alertbtn"));
+        alertButton.click();
+
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert1 = driver.switchTo().alert();
+        Thread.sleep(2000);
+        alert1.accept();
+
+        //c. Click on confirm button and cancel the alert
+        textbox.sendKeys("Gova");
+        WebElement confirmButton = driver.findElement(By.id("confirmbtn"));
+        confirmButton.click();
+
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert2 = driver.switchTo().alert();
+        Thread.sleep(2000);
+        alert2.dismiss();
+    }
+
+//    8. Web Table Fixed header
+//    Write a test to all all the amounts. Verify if the total matches with the 'Total Amount
+//    Collected' value.
     @Test
     public void totalAmount() throws InterruptedException{
         var table = driver.findElement(By.xpath("//div[@class='tableFixHead']/table[@id='product']/tbody"));
@@ -135,6 +160,17 @@ public void testAlert() throws InterruptedException {
         Thread.sleep(2000);
     }
 
+    // 5. Switch Tab Example
+    //a. Click Open Tab button
+    //b. Verify whether the following buttons are displayed :
+    //i. Home
+    //ii. Courses
+    //iii. Access All our Courses
+    //iv. Learn More
+    //v. Apply Now
+    //vi. Contact
+    //vii. Blog
+    //viii. About us
     @Test
     public void switchTab() throws InterruptedException {
         driver.findElement(By.id("opentab")).click();
@@ -161,7 +197,4 @@ public void testAlert() throws InterruptedException {
     public void tearDown() {
         driver.quit();
     }
-
-
 }
-
