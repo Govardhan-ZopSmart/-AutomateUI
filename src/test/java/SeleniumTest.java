@@ -36,9 +36,10 @@ public class SeleniumTest {
     //Click on Radio3 button and verify whether it is selected.
     @Test
     public void testRadioButton() throws InterruptedException {
-        WebElement radioButton = driver.findElement(By.cssSelector("input[value='radio3']"));
-        radioButton.click();
-        assertTrue("Radio3 button should be selected", radioButton.isSelected());
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement radioButton3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='radio3']")));
+        radioButton3.click();
+        assertTrue("Radio3 is not selected.",radioButton3.isSelected());
         Thread.sleep(2000);
     }
 

@@ -17,15 +17,32 @@ This project demonstrates the use of Selenium WebDriver for automating UI tests.
 - **IDE**: IntelliJ IDEA (or any IDE with Maven support)
 - **Git** for version control
 
+
 ## Installation and Setup
-1. Clone the repository from GitHub:
+
+1. **Initialize Git in your project directory** :
    ```bash
-   git add origin https://github.com/Govardhan-ZopSmart/-AutomateUI.git
+   git init
    ```
 
-2. Navigate to the project directory:
+2. **Add all project files to the staging area**:
    ```bash
-   cd Automating-UI-Testing
+   git add .
+   ```
+
+3. **Commit the changes**:
+   ```bash
+   git commit -m "Initial commit"
+   ```
+
+4. **Add the GitHub repository as the remote origin**:
+   ```bash
+   git remote add origin https://github.com/Govardhan-ZopSmart/AutomateUI.git
+   ```
+
+5. **Push the changes to the GitHub repository**:
+   ```bash
+   git push -u origin main
    ```
 
 3. Install Maven dependencies:
@@ -35,7 +52,7 @@ This project demonstrates the use of Selenium WebDriver for automating UI tests.
 
 4. Set up the correct path for **ChromeDriver** on your system. Update the path in the `setup` method:
    ```java
-   System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+   System.setProperty("webdriver.chrome.driver", "Driver/chromedriver");
    ```
 
 
