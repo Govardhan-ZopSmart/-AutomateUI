@@ -19,11 +19,13 @@ import java.util.List;
 
 public class SeleniumTest {
 
+    WebDriver driver;
+    WebDriverWait wait;
     @Before
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.get("https://www.rahulshettyacademy.com/AutomationPractice/");
     }
 
