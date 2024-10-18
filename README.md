@@ -112,9 +112,9 @@ Here are some examples of test scenarios automated in the project:
    ```
 
 
-### Example Test Execution Result
+### Execution Result
 
-![Test Execution Result](path_to_your_screenshot.png)
+The Execution Result can be found in the output or console log after running the test suite, typically indicating whether each test passed, failed, or was skipped.
 
 ---
 
