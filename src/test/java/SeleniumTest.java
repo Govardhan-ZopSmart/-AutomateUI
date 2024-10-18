@@ -8,9 +8,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import org.openqa.selenium.Alert;
+import java.util.List;
 
 public class SeleniumTest {
 
@@ -86,6 +89,78 @@ public class SeleniumTest {
         Thread.sleep(2000);
     }
 
+//    @Test
+//    public void testSumOfAmounts() throws InterruptedException{
+//
+//
+//        // Locate the table rows
+//        List<WebElement> rows = driver.findElements(By.cssSelector("#product tbody tr"));
+//
+//        // Initialize total sum
+//        int totalSum = 0;
+//
+//        // Loop through each row to extract the amount and calculate the total
+//        for (WebElement row : rows) {
+//            WebElement amountCell = row.findElement(By.cssSelector("td:last-child")); // Last cell is the amount
+//            int amount = Integer.parseInt(amountCell.getText()); // Convert to integer
+//            totalSum += amount; // Add to total sum
+//        }
+//
+//        // Get the displayed total amount
+//        WebElement totalAmountElement = driver.findElement(By.cssSelector(".totalAmount"));
+//        String displayedTotal = totalAmountElement.getText().split(": ")[1]; // Extract the total value
+//
+//        // Verify the total sum matches the displayed value
+//        assertEquals("The calculated total does not match the displayed total", Integer.parseInt(displayedTotal), totalSum);
+//
+//        // Print success message
+//        System.out.println("Test passed! Total amount calculated matches displayed total: " + totalSum);
+//    Thread.sleep(2000);
+//
+//    }
+@Test
+public void testAlert() throws InterruptedException {
+    WebElement textbox = driver.findElement(By.id("name"));
+
+    //a. Enter your name in textbox
+    textbox.sendKeys("Gova");
+
+    //b. Click on Alert button and accept the alert
+    WebElement alertButton = driver.findElement(By.id("alertbtn"));
+    alertButton.click();
+
+    wait.until(ExpectedConditions.alertIsPresent());
+    Alert alert1 = driver.switchTo().alert();
+    Thread.sleep(2000);
+    alert1.accept();
+
+    //c. Click on confirm button and cancel the alert
+    textbox.sendKeys("Gova");
+    WebElement confirmButton = driver.findElement(By.id("confirmbtn"));
+    confirmButton.click();
+
+    wait.until(ExpectedConditions.alertIsPresent());
+    Alert alert2 = driver.switchTo().alert();
+    Thread.sleep(2000);
+    alert2.dismiss();
+}
+    @Test
+    public void totalAmount() throws InterruptedException{
+        var table = driver.findElement(By.xpath("//div[@class='tableFixHead']/table[@id='product']/tbody"));
+        var rows =table.findElements(By.tagName("tr"));
+        int sum = 0;
+        for(var row:rows) {
+            var cells = row.findElements(By.tagName("td"));
+            sum +=Integer.parseInt(cells.get(3).getText());
+        }
+        String totalS = driver.findElement(By.className("totalAmount")).getText();
+        int total = Integer.parseInt(totalS.replaceAll("[^0-9]", ""));
+        String errorMessage = "The sum is '" + sum + "' but the total amount is '" + total + "'";
+
+        // Use assertEquals with the correct number of parameters
+        assertEquals(errorMessage, sum, total);
+        Thread.sleep(2000);
+    }
 
 
     @After
