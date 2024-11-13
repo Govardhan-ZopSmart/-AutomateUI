@@ -63,7 +63,7 @@ selenium-ui-testing
  ├── src
  │   └── test
  │       └── java
- │           └── SeleniumTest.java         # Main test class with multiple test cases
+ │           └── tests.SeleniumTest.java         # Main test class with multiple test cases
  ├── target                               # Output folder for compiled code and test results
  ├── pom.xml                              # Maven configuration file
  └── README.md                            # Documentation
